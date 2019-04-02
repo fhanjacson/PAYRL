@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>PAYRL - Template</title>
+	<link rel="stylesheet" href="vendor/bootstrap/css/bootstrap.min.css">
+	<link rel="apple-touch-icon" sizes="180x180" href="images/favicon/apple-touch-icon.png">
+	<link rel="icon" type="image/png" sizes="32x32" href="images/favicon/favicon-32x32.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="images/favicon/favicon-16x16.png">
+	<link rel="manifest" href="images/favicon/site.webmanifest">
+	<style type="text/css">
+		body { 
+			background-image: url("/images/background.jpg");
+			background-position: center center;
+			background-repeat:  no-repeat;
+			background-attachment: fixed;
+			background-size:  cover;
+			background-color: #999;
+		}
+		
+		.sign-in {
+			background-color: rgba(0, 0, 0, 0.7);
+			color: white;
+		}
+		
+		
+		/* #timeDisplay, #dateDisplay {
+			background-color: rgba(150, 150, 150, 1);
+			color: white;
+			font-size: 4vw;
+		} */
+		
+		.datetimeDisplay {
+			background-color: rgba(0,0,0,0.7);
+			color: white;
+		}
+		
+	</style>
+</head>
+<body>
+	<div class="fj-Navigation-Bar p-3">
+		<nav class="navbar navbar-expand-lg navbar-dark bg-transparent">
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+			<a class="navbar-brand font-weight-bold h4" href="/">PAYRL</a>
+			<div class="collapse navbar-collapse justify-content-end" id="navbarNavAltMarkup">
+				<div class="navbar-nav ">
+					<a class="nav-item nav-link font-weight-bold h4 active" href="/">Home <span class="sr-only">(current)</span></a>
+					<a class="nav-item nav-link font-weight-bold h4" href="admin.php">Admin</a>
+					<a class="nav-item nav-link font-weight-bold h4" href="summary.php">Summary</a>
+					<a class="nav-item nav-link font-weight-bold h4" href="references.html">Credits</a>
+				</div>
+			</div>
+		</nav>
+	</div>
+	
+	<div class="fj-Content">
+		<div class="alert alert-danger alert-dismissible fade show" role="alert" id="alertNoEmployeeIDFound" style="display:none">
+			<strong>No Employee ID Found!</strong> Double Check your Employee ID before Check-In
+			<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+		</div>
+				
+		<div class="container">
+			<div class="row">
+				<div class="col">
+					
+				</div>
+				<div class="col-10">
+					<div class="shadow-lg d-none d-md-block rounded datetimeDisplay p-5">
+						<!-- <div class="d-flex justify-content-around"> -->
+							<div id="timeDisplay" class="display-3 text-center font-weight-bold">
+							</div>
+							<div id="dateDisplay" class="display-3 text-center font-weight-bold">
+							</div>
+					</div>
+				</div>
+				<div class="col">
+					
+				</div>
+			</div>
+			<br/>
+			<div class="row">
+				<div class="col">
+				</div>
+				<div class="col-10">
+					<div class="sign-in p-5 rounded shadow-lg">
+					<form action="clock.php" method="POST">
+						<p class="display-4 text-center">Employee Sign In</p>
+						<input type="text" class="form-control form-control-lg" placeholder="Employee ID" name="employeeID" required>
+						<br/>
+						<input type="password" class="form-control form-control-lg" placeholder="Password" name="employeePassword" required>
+						<br/>
+						<button class="btn btn-primary btn-lg btn-block" type="submit">Clock In/Out</button>
+					</form>
+				</div>
+				</div>
+				<div class="col">
+				</div>
+				
+			</div>
+			
+			
+		</div>	
+	</div>
+	
+	
+	<script type="text/javascript">
+		function showTime(){
+			var date = new Date();
+			var day = date.getDay();
+			var hour = date.getHours(); // 0 - 23
+			var minute = date.getMinutes(); // 0 - 59
+			var second = date.getSeconds(); // 0 - 59
+			var session = "AM";
+			
+			
+			if(hour == 0){
+				hour = 12;
+			}
+			
+			if(hour > 12){
+				hour = hour - 12;
+				session = "PM";
+			}
+			
+			hour = (hour < 10) ? "0" + hour : hour;
+			minute = (minute < 10) ? "0" + minute : minute;
+			second = (second < 10) ? "0" + second : second;
+			
+			var time = hour + ":" + minute + ":" + second + " " + session;
+			document.getElementById("timeDisplay").innerText = time;
+			// document.getElementById("timeDisplay").textContent = time;
+			
+			setTimeout(showTime, 1000);  
+		}
+		
+		function showDate() {
+			var dateobj = new Date();
+			var daynum = dateobj.getDay();
+			var datenum = dateobj.getDate();
+			var monthnum = dateobj.getMonth();
+			var year = dateobj.getFullYear();
+			var day, month;
+			switch (daynum) {
+				case 0:
+				day = "Sunday";
+				break;
+				case 1:
+				day = "Monday";
+				break;
+				case 2:
+				day = "Tuesday";
+				break;
+				case 3:
+				day = "Wednesday";
+				break;
+				case 4:
+				day = "Thursday";
+				break;
+				case 5:
+				day = "Friday";
+				break;
+				case  6:
+				day = "Saturday";
+			}
+			switch (monthnum) {
+				case 0:
+				month = "January";
+				break;
+				case 1:
+				month = "February";
+				break;
+				case 2:
+				month = "March";
+				break;
+				case 3:
+				month = "April";
+				break;
+				case 4:
+				month = "May";
+				break;
+				case 5:
+				month = "June";
+				break;
+				case  6:
+				month = "July";
+				break;
+				case 7:
+				month = "August"
+				break;
+				case 8:
+				month = "September"
+				break;
+				case 9:
+				month = "October"
+				break;
+				case 10:
+				month = "November"
+				break;
+				case 1:
+				month = "December"
+				break;
+				
+				
+				
+			}
+			
+			var date = day + ", " + datenum + " " + month + " " + year;
+			document.getElementById("dateDisplay").innerText = date;
+			//document.getElementById("dateDisplay").textContent = time;
+			setTimeout(showDate, 60000);  
+			
+		}
+		
+		showTime();
+		showDate();
+	</script>
+	<script type="text/javascript" src="vendor/jquery/jquery-3.3.1.slim.min"></script>	
+	<script type="text/javascript" src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
+
+
