@@ -44,19 +44,9 @@
             <div class="col-8">
 
 <?php
-$servername = "localhost";
-$dbname = "payrl_db";
-$dbusername = "root";
-$dbpassword = "";
+include('payrl_db.php');
+$statement = $dbconnection->prepare("SELECT count(Employee_Index) FROM `clock` where Clock_DateTime >= '2019-03-31' AND Clock_DateTime < '2019-04-01'");
 
-$dbconnection = new mysqli($servername, $dbusername, $dbpassword, $dbname);
-if ($dbconnection->connect_error) {
-    die("Connection failed: " . $dbconnection->connect_error);
-} else {
-    $sqlCheckEmployeeID = "SELECT * FROM `employee` WHERE Employee_ID = '$employeeID'";
-    $result = $dbconnection->query($sqlCheckEmployeeID);
-    
-}
 $dbconnection->close();
 ?>
 
