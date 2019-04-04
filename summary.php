@@ -45,7 +45,11 @@
 
 <?php
 include('payrl_db.php');
-$statement = $dbconnection->prepare("SELECT count(Employee_Index) FROM `clock` where Clock_DateTime >= '2019-03-31' AND Clock_DateTime < '2019-04-01'");
+$today = date("Y-m-d"); 
+$tomorrow = date("Y-m-d", strtotime($today . '+ 1 days'));
+
+echo(password_hash("user", PASSWORD_BCRYPT));
+
 
 $dbconnection->close();
 ?>
